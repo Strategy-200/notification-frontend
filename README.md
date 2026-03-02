@@ -1,194 +1,154 @@
-# Notification Prioritization Engine — Spring Boot Stack
+# Notification Prioritization Engine — Frontend (Next.js)
 
 ## Overview
 
-This implementation provides the same Notification Prioritization Engine using **Java Spring Boot** backend with a **Next.js frontend**.
-
-The system demonstrates identical architecture and behavior as the MERN implementation, ensuring consistency across stacks.
+This frontend provides a mobile-first administrative interface for the Notification Prioritization Engine. It allows operators and admins to submit events, monitor system activity, manage rules, and analyze metrics in real time.
 
 ---
 
-## Live URLs
-
-* Frontend (Vercel): http://localhost:3000/
-* Backend API: http://localhost:5000/
-* Health Endpoint: http://localhost:3000/health
+## Live URLs 
+Frontend: http://localhost:3000 
+Backend API: http://localhost:5000 
+Health Endpoint: http://localhost:5000/health
 
 ---
 
-## Mock Credentials
+## Demo Credentials
 
 Admin:
-Email: [admin@example.com](mailto:admin@test.com)
-Password: admin123
+
+```
+admin@example.com
+admin123
+```
 
 Operator:
-Email: [operator@example.com](mailto:operator@test.com)
-Password: operator123
+
+```
+operator@example.com
+operator123
+```
+
+Credentials are displayed directly on login screen for reviewer convenience.
 
 ---
 
 ## Tech Stack
 
-### Backend
-
-* Java 17
-* Spring Boot
-* Spring Data JPA
-* Hibernate
-* PostgreSQL / MySQL (RDS)
-* Scheduler (Spring @Scheduled)
-* RestTemplate / WebClient for AI
-
-### Frontend
-
-* Next.js
-* Tailwind / Material UI
-* Axios
-* Chart libraries
-
----
-
-## Architecture
-
-Layers:
-
-1. Controller Layer
-2. Service Layer
-3. Decision Engine
-4. AI Integration Service
-5. Repository Layer
-6. Scheduler Worker
-7. Audit Logging
-
-Flow:
-
-UI → Controller → Decision Engine → AI Worker → Database → Response
+* Next.js — React framework
+* React.js — UI library
+* Tailwind CSS — Styling
+* Recharts — Data visualization
+* Axios — API communication
 
 ---
 
 ## Features
 
-* Notification classification
-* Duplicate prevention
-* Fatigue control
-* Configurable rules
-* Async AI processing
-* Scheduler queue
-* Audit logging
-* Metrics dashboard
-* Health monitoring
+* Login authentication (mock)
+* Event Simulator
+* Live Dashboard with metrics
+* Audit Logs viewer
+* Later Queue monitor
+* Rules Manager (runtime configuration)
+* Real-time updates
+* Mobile responsive UI
 
 ---
 
-## AI Integration
+## Project Structure
 
-* External LLM API
-* Async processing using background executor
-* Retry with exponential backoff
-* Circuit breaker fallback
+```
+app/
+ ├── login/
+ ├── dashboard/
+ ├── event/
+ ├── audit/
+ ├── later/
+ ├── rules/
+ └── layout.js
 
-Fallback logic ensures system works even when AI unavailable.
-
----
-
-## Database Design
-
-Relational schema includes:
-
-* Notifications
-* Audit Logs
-* Rules
-* Users
-* Queue Records
-
-Soft deletes enabled for recoverability.
-
-Audit log is append-only.
-
-Migrations handled via Flyway / Liquibase.
+lib/
+ └── api.js
+```
 
 ---
 
-## Setup Instructions
+## Installation & Running Locally
 
 ### Prerequisites
 
-* Java 17+
-* Maven / Gradle
-* PostgreSQL / MySQL
-* Node.js (frontend)
+* Node.js >= 18
+* npm
 
----
-
-### Backend Setup
-
-```bash
-git clone <repo>
-cd backend
-mvn clean install
-```
-
-Configure `application.properties`:
+### Steps
 
 ```
-spring.datasource.url=...
-spring.datasource.username=...
-spring.datasource.password=...
-AI_API_KEY=...
-```
-
-Run:
-
-```
-mvn spring-boot:run
-```
-
----
-
-### Frontend Setup
-
-```bash
-cd frontend
+git clone <repo-url>
+cd notification-frontend
 npm install
 npm run dev
 ```
 
+Open:
+
+```
+http://localhost:3000
+```
+
 ---
 
-## Scheduler
+## Environment Configuration
 
-Deferred notifications processed periodically using Spring scheduler.
+Update backend URL inside:
+
+```
+lib/api.js
+```
+
+Example:
+
+```
+baseURL: "https://your-backend-url.onrender.com"
+```
 
 ---
 
-## Fail-Safe Architecture
+## Pages
 
-* AI retry logic
-* Circuit breaker
-* Fallback classification
-* Persistent failure storage
-* Health endpoint monitoring
+| Page            | Description               |
+| --------------- | ------------------------- |
+| Login           | User authentication       |
+| Dashboard       | Metrics and charts        |
+| Event Simulator | Submit test notifications |
+| Audit Logs      | Decision history          |
+| Later Queue     | Deferred events           |
+| Rules Manager   | Admin rule configuration  |
+
+---
+
+## Architecture Flow
+
+User → Frontend → Backend API → Database → Response → UI Update
+
+Real-time updates implemented via polling.
+
+---
+
+## Deployment
+
+Frontend deployed on Vercel connected to live backend API.
 
 ---
 
 ## Known Limitations
 
-* Simplified similarity detection
-* Fixed scheduler interval
-* Limited load testing
-
----
-
-## Future Improvements
-
-* Distributed queue (Kafka)
-* ML-based ranking
-* Auto-scaling microservices
-* Advanced monitoring
+* Authentication is mock implementation
+* Real-time updates use polling instead of WebSockets
+* UI editing of rules is basic
 
 ---
 
 ## Author
 
-<Your Name>
+Your Name
