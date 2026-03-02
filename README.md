@@ -1,36 +1,194 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Notification Prioritization Engine — Spring Boot Stack
 
-## Getting Started
+## Overview
 
-First, run the development server:
+This implementation provides the same Notification Prioritization Engine using **Java Spring Boot** backend with a **Next.js frontend**.
+
+The system demonstrates identical architecture and behavior as the MERN implementation, ensuring consistency across stacks.
+
+---
+
+## Live URLs
+
+* Frontend (Vercel): http://localhost:3000/
+* Backend API: http://localhost:5000/
+* Health Endpoint: http://localhost:3000/health
+
+---
+
+## Mock Credentials
+
+Admin:
+Email: [admin@example.com](mailto:admin@test.com)
+Password: admin123
+
+Operator:
+Email: [operator@example.com](mailto:operator@test.com)
+Password: operator123
+
+---
+
+## Tech Stack
+
+### Backend
+
+* Java 17
+* Spring Boot
+* Spring Data JPA
+* Hibernate
+* PostgreSQL / MySQL (RDS)
+* Scheduler (Spring @Scheduled)
+* RestTemplate / WebClient for AI
+
+### Frontend
+
+* Next.js
+* Tailwind / Material UI
+* Axios
+* Chart libraries
+
+---
+
+## Architecture
+
+Layers:
+
+1. Controller Layer
+2. Service Layer
+3. Decision Engine
+4. AI Integration Service
+5. Repository Layer
+6. Scheduler Worker
+7. Audit Logging
+
+Flow:
+
+UI → Controller → Decision Engine → AI Worker → Database → Response
+
+---
+
+## Features
+
+* Notification classification
+* Duplicate prevention
+* Fatigue control
+* Configurable rules
+* Async AI processing
+* Scheduler queue
+* Audit logging
+* Metrics dashboard
+* Health monitoring
+
+---
+
+## AI Integration
+
+* External LLM API
+* Async processing using background executor
+* Retry with exponential backoff
+* Circuit breaker fallback
+
+Fallback logic ensures system works even when AI unavailable.
+
+---
+
+## Database Design
+
+Relational schema includes:
+
+* Notifications
+* Audit Logs
+* Rules
+* Users
+* Queue Records
+
+Soft deletes enabled for recoverability.
+
+Audit log is append-only.
+
+Migrations handled via Flyway / Liquibase.
+
+---
+
+## Setup Instructions
+
+### Prerequisites
+
+* Java 17+
+* Maven / Gradle
+* PostgreSQL / MySQL
+* Node.js (frontend)
+
+---
+
+### Backend Setup
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repo>
+cd backend
+mvn clean install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Configure `application.properties`:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+spring.datasource.url=...
+spring.datasource.username=...
+spring.datasource.password=...
+AI_API_KEY=...
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Run:
 
-## Learn More
+```
+mvn spring-boot:run
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Frontend Setup
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Scheduler
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Deferred notifications processed periodically using Spring scheduler.
+
+---
+
+## Fail-Safe Architecture
+
+* AI retry logic
+* Circuit breaker
+* Fallback classification
+* Persistent failure storage
+* Health endpoint monitoring
+
+---
+
+## Known Limitations
+
+* Simplified similarity detection
+* Fixed scheduler interval
+* Limited load testing
+
+---
+
+## Future Improvements
+
+* Distributed queue (Kafka)
+* ML-based ranking
+* Auto-scaling microservices
+* Advanced monitoring
+
+---
+
+## Author
+
+<Your Name>
